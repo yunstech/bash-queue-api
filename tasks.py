@@ -1,12 +1,17 @@
 import subprocess
+import shlex
 
-def run_bash_script(param1: str, param2: str):
-    """Execute a bash script with parameters."""
-    script_path = "./bash-script/run_me.sh"
+def run_bash_script(file_path: str):
+    """
+    Run bash script with arguments:
+    bash ./../parse2.sh <file_path> --keywords-file ./../urlsevplat.txt --upload
+    """
+    command = f"bash ./../parse2.sh {shlex.quote(file_path)} --keywords-file ./../urlsevplat.txt --upload"
 
     try:
         result = subprocess.run(
-            [script_path, param1, param2],
+            command,
+            shell=True,
             capture_output=True,
             text=True,
             check=True

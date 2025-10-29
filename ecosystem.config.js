@@ -2,9 +2,9 @@ module.exports = {
   apps: [
     {
       name: "bash-runner-api",
-      script: "uvicorn",
-      args: "app:app --host 0.0.0.0 --port 8000",
-      interpreter: "python3",
+      cwd: "{path}/bash-queue-api",
+      script: "./venv/bin/python3",
+      args: "-m uvicorn app:app --host 0.0.0.0 --port 8668",
       watch: false,
       env: {
         REDIS_HOST: "localhost",
@@ -13,8 +13,9 @@ module.exports = {
     },
     {
       name: "bash-runner-worker",
-      script: "worker.py",
-      interpreter: "python3",
+      cwd: "{path}/bash-queue-api",
+      script: "./venv/bin/python3",
+      args: "worker.py",
       watch: false,
       env: {
         REDIS_HOST: "localhost",
